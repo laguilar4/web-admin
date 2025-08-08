@@ -1,0 +1,164 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #004e92, #000428);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor del login */
+.login-container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.login-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+}
+
+/* Formulario */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-top: 20px;
+}
+
+.login-form label {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.login-form input {
+    padding: 0.7rem;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.login-form button {
+    background: #00c6ff;
+    color: #fff;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-form button:hover {
+    background: #0072ff;
+}
+
+.extra-links {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.extra-links a {
+    color: #00c6ff;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.extra-links a:hover {
+    text-decoration: underline;
+}
+
+/* Encabezado principal */
+.main-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.logo-header {
+    height: 50px;
+    margin-right: 1rem;
+}
+
+/* Encabezado fijo arriba */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo-header {
+    height: 45px;
+    margin-right: 0.8rem;
+}
+
+.main-header h1 {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* Menú */
+.main-header nav a {
+    color: #00c6ff;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.main-header nav a:hover {
+    color: #fff;
+}
+
+/* Ajustar contenido para que no quede debajo del header */
+.main-content {
+    padding: 6rem 2rem 2rem;
+    text-align: center;
+}
+
+.main-content h2 {
+    margin-bottom: 1rem;
+    color: #00c6ff;
+}
+
