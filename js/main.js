@@ -1,8 +1,27 @@
-import { apiRequest } from "./utils.js"; 
-
-const url = "http://127.0.0.1/api-php/api";
+const API_URL = "http://127.0.0.1/api-php/api";
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    const apiRequest = async (endpoint, method = "GET", body = null, headers = {}) => {
+    try {
+        const options = {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+        if (body) {
+            options.body = JSON.stringify(body);
+        }
+        const response = await fetch(endpoint, options);
+        return await response.json();
+    } catch (error) {
+        console.error("Error en la petición:", error);
+        throw error;
+    }
+};
+
     const form = document.querySelector(".login-form");
 
     form.addEventListener("submit", async (e) => {
@@ -13,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const data = await apiRequest(
-            `${url}/login`,
+            `${API_URL}/login`,
                 "POST",
                 { email, password }
             );
@@ -32,10 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.location.href = "views/roles/admin/admin.html";
                     break;
                 case "student":
-                    window.location.href = "views/roles/student/student.html";
+                    window.location.href = "views/roles/estudiante/estudiante.html";
                     break;
                 case "teacher":
-                    window.location.href = "views/roles/teacher/teacher.html";
+                    window.location.href = "views/roles/profesor/profesor.html";
                     break;
                 default:
                     alert("Rol no reconocido");

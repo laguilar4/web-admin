@@ -162,3 +162,47 @@ body {
     color: #00c6ff;
 }
 
+/* Estilos para tabla más bonita */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead tr {
+    background-color: #4a90e2;
+    color: white;
+    text-align: left;
+}
+
+thead th, tbody td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr td {
+    background-color: #ffffff;
+    color:#000428;
+}
+
+input#searchInput {
+    padding: 8px 12px;
+    width: 320px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input#searchInput:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
