@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1/api-php/api";
+const API_URL = "http://54.147.36.38:8080/api";//"http://127.0.0.1/api-php/api";
 const htmlTablaUsuarios = `
   <h2>Gestión de Usuarios</h2>
   <input type="text" id="searchInput" placeholder="Buscar usuario..." style="margin-bottom:10px;padding:5px;width:300px;">

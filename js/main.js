@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1/api-php/api";
+const API_URL = "http://54.147.36.38:8080/api";//"http://127.0.0.1/api-php/api";
 
 document.addEventListener("DOMContentLoaded", () => {
 
