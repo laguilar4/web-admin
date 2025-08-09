@@ -59,7 +59,30 @@ const htmlCrearUsuario = `
 // Función para mostrar tabla y cargar usuarios
 async function mostrarUsuarios(filtro = "") {
   const main = document.getElementById("mainContent");
-  main.innerHTML = htmlTablaUsuarios;
+  main.innerHTML = `
+    <div style="margin-bottom: 15px;">
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Buscar usuario..." 
+        style="padding: 8px; width: 100%; max-width: 300px; border: 1px solid #ccc; border-radius: 5px;"
+        value="${filtro}"
+      />
+    </div>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+        <thead style="background-color: #4CAF50; color: white;">
+          <tr>
+            <th style="padding: 10px; text-align: center;">ID</th>
+            <th style="padding: 10px; text-align: center;">Nombre</th>
+            <th style="padding: 10px; text-align: center;">Email</th>
+            <th style="padding: 10px; text-align: center;">Rol</th>
+          </tr>
+        </thead>
+        <tbody id="usuariosBody"></tbody>
+      </table>
+    </div>
+  `;
 
   try {
     const usuarios = await apiRequest(`${API_URL}/users`);
@@ -72,21 +95,24 @@ async function mostrarUsuarios(filtro = "") {
 
     tbody.innerHTML = usuariosFiltrados.map(u => `
       <tr>
-        <td>${u.id}</td>
-        <td>${u.nombre}</td>
-        <td>${u.email}</td>
-        <td>${u.role}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.id}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.nombre}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.email}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.role}</td>
       </tr>
     `).join("");
 
+    // Mantener el texto de búsqueda
     document.getElementById("searchInput").addEventListener("input", (e) => {
       mostrarUsuarios(e.target.value);
     });
+
   } catch (error) {
     console.error("Error al cargar usuarios:", error);
     main.innerHTML = "<p style='color:red;'>Error al cargar los usuarios.</p>";
   }
 }
+
 
 async function addUser(nombre, email, password, role) {
     try {

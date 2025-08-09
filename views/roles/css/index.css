@@ -9,10 +9,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(135deg, #004e92, #000428);
     color: #fff;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 }
 
 /* Contenedor del login */
@@ -25,6 +24,7 @@ body {
     max-width: 400px;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    margin: auto;
 }
 
 .login-container h1 {
@@ -92,23 +92,6 @@ body {
 
 /* Encabezado principal */
 .main-header {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    backdrop-filter: blur(10px);
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-
-.logo-header {
-    height: 50px;
-    margin-right: 1rem;
-}
-
-/* Encabezado fijo arriba */
-.main-header {
     position: fixed;
     top: 0;
     left: 0;
@@ -154,6 +137,7 @@ body {
 /* Ajustar contenido para que no quede debajo del header */
 .main-content {
     padding: 6rem 2rem 2rem;
+    flex: 1;
     text-align: center;
 }
 
@@ -162,7 +146,12 @@ body {
     color: #00c6ff;
 }
 
-/* Estilos para tabla más bonita */
+/* Estilos para tabla */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Scroll horizontal si es necesario */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -171,6 +160,7 @@ table {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 8px;
     overflow: hidden;
+    min-width: 600px; /* Para que no se rompa en columnas */
 }
 
 thead tr {
@@ -188,14 +178,20 @@ tbody tr {
     transition: background-color 0.3s ease;
 }
 
-tbody tr td {
-    background-color: #ffffff;
-    color:#000428;
+tbody tr:hover {
+    background-color: rgba(74, 144, 226, 0.1);
 }
 
+tbody tr td {
+    background-color: #ffffff;
+    color: #000428;
+}
+
+/* Input búsqueda */
 input#searchInput {
     padding: 8px 12px;
     width: 320px;
+    max-width: 100%;
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 14px;
@@ -207,3 +203,22 @@ input#searchInput:focus {
     outline: none;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .main-header nav {
+        margin-top: 0.5rem;
+    }
+
+    table {
+        font-size: 0.85rem;
+    }
+
+    thead th, tbody td {
+        padding: 8px;
+    }
+}
