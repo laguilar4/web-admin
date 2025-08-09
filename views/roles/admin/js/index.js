@@ -88,6 +88,30 @@ async function mostrarUsuarios(filtro = "") {
   }
 }
 
+async function addUser(nombre, email, password, role) {
+    try {
+        const data = await apiRequest(
+            `${API_URL}`, // endpoint
+            "POST", // método
+            { nombre, email, password, role } // body
+        );
+
+        if (data.message) {
+            document.getElementById("mensajeCrearUsuario").innerHTML =
+                `<span style="color:green;">${data.message}</span>`;
+        } else if (data.error) {
+            document.getElementById("mensajeCrearUsuario").innerHTML =
+                `<span style="color:red;">${data.error}</span>`;
+        }
+
+    } catch (error) {
+        console.error("⚠️ Error al crear usuario:", error);
+        document.getElementById("mensajeCrearUsuario").innerHTML =
+            `<span style="color:red;">Error de conexión con la API</span>`;
+    }
+}
+
+
 // Función para mostrar formulario crear usuario
 function mostrarFormularioCrearUsuario() {
   const main = document.getElementById("mainContent");
