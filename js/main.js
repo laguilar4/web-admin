@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
             method,
             headers: {
                 "Content-Type": "application/json",
+                 ...headers
             }
         };
 
@@ -44,6 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Guardar datos en localStorage
             localStorage.setItem("usuario", JSON.stringify(data.usuario));
+
+            if (data.token) {
+                localStorage.setItem("token", data.token);
+            }
 
             // Redirigir según rol
             switch (data.usuario.role) {

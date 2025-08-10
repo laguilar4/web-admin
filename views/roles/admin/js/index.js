@@ -1,4 +1,5 @@
 const API_URL = "http://54.147.36.38:8080/api";//"http://127.0.0.1/api-php/api";
+const token = localStorage.getItem("token");
 const htmlTablaUsuarios = `
   <h2>Gestión de Usuarios</h2>
   <input type="text" id="searchInput" placeholder="Buscar usuario..." style="margin-bottom:10px;padding:5px;width:300px;">
@@ -43,6 +44,7 @@ const htmlCrearUsuario = `
             method,
             headers: {
                 "Content-Type": "application/json",
+                 ...headers
             }
         };
 
@@ -85,7 +87,7 @@ async function mostrarUsuarios(filtro = "") {
   `;
 
   try {
-    const usuarios = await apiRequest(`${API_URL}/users`);
+    const usuarios = await apiRequest(`${API_URL}/users`, "GET", null, { Authorization: `Bearer ${token}` });
     const tbody = document.getElementById("usuariosBody");
 
     const usuariosFiltrados = usuarios.filter(u =>
@@ -117,9 +119,10 @@ async function mostrarUsuarios(filtro = "") {
 async function addUser(nombre, email, password, role) {
     try {
         const data = await apiRequest(
-            `${API_URL}`, // endpoint
-            "POST", // método
-            { nombre, email, password, role } // body
+            `${API_URL}`, 
+            "POST", 
+            { nombre, email, password, role } ,
+            { Authorization: `Bearer ${token}` }
         );
 
         if (data.message) {
@@ -157,7 +160,7 @@ function mostrarFormularioCrearUsuario() {
     };
 
     try {
-      const res = await apiRequest(`${API_URL}/users`, "POST", data);
+      const res = await apiRequest(`${API_URL}/users`, "POST", data, { Authorization: `Bearer ${token}` });
       mensaje.style.color = "green";
       mensaje.textContent = res.message || "Usuario creado correctamente";
 
