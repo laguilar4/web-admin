@@ -15,28 +15,62 @@ const htmlTablaUsuarios = `
 
 // HTML formulario crear usuario
 const htmlCrearUsuario = `
-  <h2>Crear Nuevo Usuario</h2>
-  <form id="formCrearUsuario">
-    <label for="nombre">Nombre:</label><br />
-    <input type="text" id="nombre" name="nombre" required /><br /><br />
+<form id="formCrearUsuario" style="max-width: 400px; margin: 30px auto; padding: 20px; background: #f7f9fc; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <label for="nombre" style="font-weight: 600; display: block; margin-bottom: 6px; color: #333;">Nombre:</label>
+  <input 
+    type="text" 
+    id="nombre" 
+    name="nombre" 
+    required 
+    style="width: 100%; padding: 10px 12px; margin-bottom: 18px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; box-sizing: border-box;"
+    onfocus="this.style.borderColor='#007BFF';" 
+    onblur="this.style.borderColor='#ccc';"
+  >
 
-    <label for="email">Correo electrónico:</label><br />
-    <input type="email" id="email" name="email" required /><br /><br />
+  <label for="email" style="font-weight: 600; display: block; margin-bottom: 6px; color: #333;">Correo electrónico:</label>
+  <input 
+    type="email" 
+    id="email" 
+    name="email" 
+    required 
+    style="width: 100%; padding: 10px 12px; margin-bottom: 18px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; box-sizing: border-box;"
+    onfocus="this.style.borderColor='#007BFF';" 
+    onblur="this.style.borderColor='#ccc';"
+  >
 
-    <label for="password">Contraseña:</label><br />
-    <input type="password" id="password" name="password" required /><br /><br />
+  <label for="password" style="font-weight: 600; display: block; margin-bottom: 6px; color: #333;">Contraseña:</label>
+  <input 
+    type="password" 
+    id="password" 
+    name="password" 
+    required 
+    style="width: 100%; padding: 10px 12px; margin-bottom: 18px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; box-sizing: border-box;"
+    onfocus="this.style.borderColor='#007BFF';" 
+    onblur="this.style.borderColor='#ccc';"
+  >
 
-    <label for="role">Rol:</label><br />
-    <select id="role" name="role" required>
-      <option value="">-- Seleccione un rol --</option>
-      <option value="admin">Administrador</option>
-      <option value="student">Estudiante</option>
-      <option value="teacher">Profesor</option>
-    </select><br /><br />
+  <label for="role" style="font-weight: 600; display: block; margin-bottom: 6px; color: #333;">Rol:</label>
+  <select 
+    id="role" 
+    name="role" 
+    required 
+    style="width: 100%; padding: 10px 12px; margin-bottom: 18px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; box-sizing: border-box;"
+    onfocus="this.style.borderColor='#007BFF';" 
+    onblur="this.style.borderColor='#ccc';"
+  >
+    <option value="">-- Seleccione un rol --</option>
+    <option value="admin">Administrador</option>
+    <option value="student">Estudiante</option>
+    <option value="teacher">Profesor</option>
+  </select>
 
-    <button type="submit">Crear Usuario</button>
-  </form>
-  <div id="mensajeCrearUsuario" style="margin-top: 15px;"></div>
+  <button 
+    type="submit" 
+    style="background-color: #007BFF; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 1.1rem; width: 100%; transition: background-color 0.3s;"
+    onmouseover="this.style.backgroundColor='#0056b3';" 
+    onmouseout="this.style.backgroundColor='#007BFF';"
+  >Crear Usuario</button>
+</form>
 `;
  const apiRequest = async (endpoint, method = "GET", body = null, headers = {}) => {
     try {
