@@ -87,6 +87,8 @@ async function mostrarUsuarios(filtro = "") {
   `;
 
   try {
+    console.log('el token es:');
+    console.log(token);
     const usuarios = await apiRequest(`${API_URL}/users`, "GET", {}, { Authorization: `Bearer ${token}` });
     const tbody = document.getElementById("usuariosBody");
 
