@@ -92,6 +92,12 @@ async function mostrarUsuarios(filtro = "") {
     const usuarios = await apiRequest(`${API_URL}/users`, "GET", null, { Authorization: `Bearer ${token}` });
     const tbody = document.getElementById("usuariosBody");
 
+    if (!Array.isArray(usuarios)) {
+      console.error("⚠ No se recibieron usuarios:", usuarios);
+      return;
+    }
+
+
     const usuariosFiltrados = usuarios.filter(u =>
       u.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
       u.email.toLowerCase().includes(filtro.toLowerCase())
