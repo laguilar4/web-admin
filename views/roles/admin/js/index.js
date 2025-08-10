@@ -71,6 +71,7 @@ const htmlCrearUsuario = `
     onmouseout="this.style.backgroundColor='#007BFF';"
   >Crear Usuario</button>
 </form>
+<div id="mensajeCrearUsuario" style="margin-top: 15px;"></div>
 `;
  const apiRequest = async (endpoint, method = "GET", body = null, headers = {}) => {
     try {
