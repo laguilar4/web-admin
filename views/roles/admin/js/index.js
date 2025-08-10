@@ -94,8 +94,12 @@ const htmlCrearUsuario = `
     }
 };
 // Función para mostrar tabla y cargar usuarios
+let usuariosCache = []; // Variable global para guardar usuarios
+
 async function mostrarUsuarios(filtro = "") {
   const main = document.getElementById("mainContent");
+
+  // Renderiza la estructura solo una vez
   main.innerHTML = `
     <div style="margin-bottom: 15px;">
       <input 
@@ -121,35 +125,29 @@ async function mostrarUsuarios(filtro = "") {
     </div>
   `;
 
-  try {
-    console.log('el token es:');
-    console.log(token);
-    const usuarios = await apiRequest(`${API_URL}/users`, "GET", null, { Authorization: `Bearer ${token}` });
-    const tbody = document.getElementById("usuariosBody");
+  // Obtener referencia al tbody
+  const tbody = document.getElementById("usuariosBody");
 
-    if (!Array.isArray(usuarios)) {
-      console.error("⚠ No se recibieron usuarios:", usuarios);
-      return;
+  try {
+    // Si no tenemos usuarios en cache, hacemos la petición API
+    if (usuariosCache.length === 0) {
+      console.log('El token es:', token);
+      const usuarios = await apiRequest(`${API_URL}/users`, "GET", null, { Authorization: `Bearer ${token}` });
+
+      if (!Array.isArray(usuarios)) {
+        console.error("⚠ No se recibieron usuarios:", usuarios);
+        main.innerHTML = "<p style='color:red;'>No se pudieron cargar los usuarios.</p>";
+        return;
+      }
+      usuariosCache = usuarios; // Guardar en cache
     }
 
+    // Mostrar usuarios filtrados según el filtro inicial
+    filtrarUsuarios(filtro);
 
-    const usuariosFiltrados = usuarios.filter(u =>
-      u.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-      u.email.toLowerCase().includes(filtro.toLowerCase())
-    );
-
-    tbody.innerHTML = usuariosFiltrados.map(u => `
-      <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.id}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.nombre}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.email}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.role}</td>
-      </tr>
-    `).join("");
-
-    // Mantener el texto de búsqueda
-    document.getElementById("searchInput").addEventListener("input", (e) => {
-      mostrarUsuarios(e.target.value);
+    // Asignar evento input solo una vez para filtrar localmente
+    document.getElementById("searchInput").addEventListener("input", e => {
+      filtrarUsuarios(e.target.value);
     });
 
   } catch (error) {
@@ -157,6 +155,29 @@ async function mostrarUsuarios(filtro = "") {
     main.innerHTML = "<p style='color:red;'>Error al cargar los usuarios.</p>";
   }
 }
+
+// Función auxiliar para filtrar y mostrar usuarios sin recargar todo
+function filtrarUsuarios(filtro) {
+  const tbody = document.getElementById("usuariosBody");
+  if (!tbody) return;
+
+  const filtroLower = filtro.toLowerCase();
+
+  const usuariosFiltrados = usuariosCache.filter(u =>
+    u.nombre.toLowerCase().includes(filtroLower) ||
+    u.email.toLowerCase().includes(filtroLower)
+  );
+
+  tbody.innerHTML = usuariosFiltrados.map(u => `
+    <tr>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.id}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.nombre}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.email}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #ddd;">${u.role}</td>
+    </tr>
+  `).join("");
+}
+
 
 
 async function addUser(nombre, email, password, role) {
@@ -217,8 +238,9 @@ function mostrarFormularioCrearUsuario() {
 }
 
 // Asociar eventos a botones
-document.getElementById("btnUsuarios").addEventListener("click", (e) => {
+document.getElementById("btnUsuarios").addEventListener("click", async (e) => {
   e.preventDefault();
+  usuariosCache = await apiRequest(`${API_URL}/users`, "GET", null, { Authorization: `Bearer ${token}` });
   mostrarUsuarios();
 });
 
